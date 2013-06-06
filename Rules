@@ -1,0 +1,41 @@
+#!/usr/bin/env ruby
+compile '/stylesheets/*/' do
+   filter :sass, Compass.sass_engine_options
+end
+
+route '/stylesheets/*/' do
+   item.identifier.chop + '.css'
+end
+
+compile '/javascripts/*/' do
+  case item[:extension]
+  when 'coffee'
+    filter :coffee
+  when 'js'
+    # Nothing
+  end
+end
+
+route '/javascripts/*/' do
+  item.identifier.chop + ".js"
+end
+
+compile '*' do
+  if item.binary?
+    # don’t filter binary items
+  else
+    filter :haml
+    layout 'default'
+  end
+end
+
+route '*' do
+  if item.binary? or item.raw_filename =~ /\.js\z/;
+    # Write item with identifier /foo/ to /foo.ext
+    item.identifier.chop + '.' + item[:extension]
+  else
+    item.identifier + 'index.html'
+  end
+end
+
+layout '*', :haml, :format => :html5

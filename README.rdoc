@@ -1,0 +1,10 @@
+= nanoc-start
+
+A nanoc skeleton together with:
+
+- Haml
+- Compass/Sass
+- CoffeeScript
+- Twitter-Bootstrap (bootstrap-sass)
+- JQuery
+- LiveReload
