@@ -3,3 +3,5 @@
 output/*
 tmp
 crash.log
+.ruby-gemset
+.ruby-version
